@@ -172,27 +172,7 @@
         </div>
     </div>
 
-    <script>
-        const TARIFFA_KM = 0.25;
-        let scontrinoBase64 = "";
-        
-        let databaseSpese = JSON.parse(localStorage.getItem('databaseSpese')) || [];
-        let databaseTelepass = JSON.parse(localStorage.getItem('databaseTelepass')) || [];
-
-        const coordinatoriIniziali = [
-            "Coordinatore Bruscolini", "Coordinatore Caletta", "Coordinatore Casaburi",
-            "Coordinatore Ceniti", "Coordinatore Ledda", "Coordinatore Mazzoleni",
-            "Coordinatore Migliaccio", "Coordinatore Piccinetti", "Coordinatore Stella", "Coordinatore Vendemini"
-        ];
-
-        function cambiaTab(tabIndex, elementoTab) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
-            elementoTab.classList.add('active');
-            const targetSezione = document.getElementById('tab' + tabIndex);
-            if(targetSezione) {
-                targetSezione.classList.add('active');
-            }
-            
-            if(tabIndex === 3) aggiornaArchivioScontrini();
+    <!-- Collegamento esterno al file dei comandi -->
+    <script src="./script.js"></script>
+</body>
+</html>
