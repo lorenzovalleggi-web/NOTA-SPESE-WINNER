@@ -128,7 +128,7 @@
         coordinatori.forEach(c => { let o = document.createElement('option'); o.value = c; o.textContent = c; sel.appendChild(o); });
 
         document.getElementById('scontrino').addEventListener('change', function(e) {
-            if (e.target.files[0]) {
+            if (e.target.files && e.target.files[0]) {
                 document.getElementById('label-foto').textContent = "✅ Caricato";
                 const r = new FileReader();
                 r.onload = function(ev) { scontrinoBase64 = ev.target.result; };
@@ -169,12 +169,24 @@
         }
 
         function cancellaRiga(id) { databaseSpese = databaseSpese.filter(i => i.id !== id); salva(); }
-        function svuotaTutto() { if(confirm("Cancellar tutto?")) { databaseSpese = []; databaseTelepass = []; localStorage.clear(); salva(); renderTelepass(); } }
-        function salva() { localStorage.setItem('databaseSpese', JSON.stringify(databaseSpese)); renderMain(); renderTotale(); }
+        
+        function svuotaTutto() { 
+            if(confirm("Cancellare tutti i dati permanentemente?")) { 
+                databaseSpese = []; databaseTelepass = []; 
+                localStorage.clear(); 
+                salva(); 
+                renderTelepass(); 
+            } 
+        }
+        
+        function salva() { 
+            localStorage.setItem('databaseSpese', JSON.stringify(databaseSpese)); 
+            renderMain(); 
+            renderTotale(); 
+        }
 
         function renderMain() {
             const tbody = document.getElementById('tabella-corpo'); tbody.innerHTML = "";
             databaseSpese.forEach(i => {
                 let tKm = i.km * TARIFFA_KM; let tot = tKm + i.autostrade + i.vitto + i.varie;
-                let img = i.scontrino ? `<img src="${i.scontrino}" class="anteprima-img" onclick="apriImmagine('${i.scontrino}')">` : 'No';
-                tbody.innerHTML += `<tr><td>${i.data}</td><td>${i.comune}</td><td>${i.coordinatore}</td><td>${i.km}</td><td>€ ${tKm.toFixed(2)}</td><td>€ ${i.autostrade.toFixed(2)}</td><td>€ ${i.vitto.toFixed(2)}</td><td>€ ${i.varie.toFixed(2)}</td><td>${img}</td><td style="font-weight:bold;">€ ${tot.toFixed(2)}</td><td><button class="btn-danger" onclick="cancellaRiga(${i.id})">X</button></td></tr>`;
+                let img = i.scontrino ? `<img src="${i.scontrino}" class="anteprima-img" onclick="apriImmagine('${i.scontrino}')">` : 'Nessuno';
