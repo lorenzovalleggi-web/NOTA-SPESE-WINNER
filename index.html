@@ -8,36 +8,26 @@
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 20px; background-color: #f4f6f9; color: #333; }
         h2 { color: #2c3e50; margin-bottom: 5px; }
         .sottotitolo { color: #7f8c8d; margin-bottom: 20px; font-size: 14px; }
-        
-        /* Menu di Navigazione a Schede */
         .nav-tabs { display: flex; gap: 5px; margin-bottom: 20px; flex-wrap: wrap; background: #e0e0e0; padding: 6px; border-radius: 6px; }
         .tab { flex: 1; min-width: 120px; text-align: center; padding: 12px 10px; background: none; cursor: pointer; border-radius: 4px; font-weight: 600; font-size: 13px; color: #555; transition: all 0.2s ease; border: none; }
         .tab:hover { background: rgba(255,255,255,0.5); color: #000; }
         .tab.active { background: #71b951; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        
-        /* Contenitori delle sezioni */
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        
         .card { background: white; padding: 20px; border-radius: 6px; border: 1px solid #dcdfe6; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; }
         form { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; background: #fafafa; padding: 15px; border-radius: 6px; border: 1px solid #ebeef5; }
         input, select, button { padding: 10px; border: 1px solid #dcdfe6; border-radius: 4px; font-size: 14px; }
         input[type="number"] { width: 110px; }
-        
         .file-label { background-color: #e6a23c; color: white; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px; display: inline-block; }
-        .file-label:hover { background-color: #d39334; }
         #scontrino { display: none; }
-        
         button { background-color: #71b951; color: white; border: none; cursor: pointer; font-weight: bold; padding: 10px 20px; }
         button:hover { background-color: #5da33f; }
         button.btn-danger { background-color: #f56c6c; padding: 8px 15px; font-size: 13px; }
         button.btn-danger:hover { background-color: #e64242; }
-        
         .table-container { overflow-x: auto; background: white; margin-top: 20px; border-radius: 6px; border: 1px solid #dcdfe6; }
         table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
         th, td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
         th { background-color: #f8f9fa; color: #606266; font-weight: 600; }
-        
         .totale-evidenziato { font-weight: bold; color: #2c3e50; }
         .anteprima-img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid #ccc; cursor: pointer; }
         .nessun-allegato { color: #909399; font-size: 12px; font-style: italic; }
@@ -49,7 +39,6 @@
     <h2>Applicazione Nota Spese - Winner</h2>
     <div class="sottotitolo">Fai clic sulle schede qui sotto per spostarti tra le varie sezioni dell'app:</div>
     
-    <!-- Menu di Navigazione -->
     <div class="nav-tabs">
         <button class="tab" onclick="cambiaTab(1, this)">1. Calcoli</button>
         <button class="tab active" onclick="cambiaTab(2, this)">2. Nota Spese</button>
@@ -59,7 +48,7 @@
         <button class="tab" onclick="cambiaTab(6, this)">6. Sintesi Scontrini</button>
     </div>
 
-    <!-- SEZIONE 1: CALCOLI -->
+    <!-- SEZIONE 1 -->
     <div id="tab1" class="tab-content card">
         <h3>1. Tariffe e Parametri di Calcolo</h3>
         <div class="box-calcolo">
@@ -71,7 +60,7 @@
         </div>
     </div>
 
-    <!-- SEZIONE 2: NOTA SPESE -->
+    <!-- SEZIONE 2 -->
     <div id="tab2" class="tab-content active card">
         <h3>2. Inserimento Nuova Trasferta</h3>
         <form id="spese-form">
@@ -115,14 +104,14 @@
         <button class="btn-danger" onclick="svuotaTutto()">🗑️ Svuota Tutta la Nota Spese</button>
     </div>
 
-    <!-- SEZIONE 3: SCONTRINI -->
+    <!-- SEZIONE 3 -->
     <div id="tab3" class="tab-content card">
         <h3>3. Archivio Scontrini e Ricevute</h3>
         <p>Anteprima rapida di tutti gli scontrini fotografati e allegati alle trasferte:</p>
         <div id="lista-scontrini-globali" style="display:flex; gap:15px; flex-wrap:wrap; margin-top:15px;"></div>
     </div>
 
-    <!-- SEZIONE 4: TELEPASS -->
+    <!-- SEZIONE 4 -->
     <div id="tab4" class="tab-content card">
         <h3>4. Gestione e Resoconto Telepass</h3>
         <form id="telepass-form" onsubmit="aggiungiTelepass(event)" style="margin-bottom:20px;">
@@ -145,7 +134,7 @@
         </div>
     </div>
 
-    <!-- SEZIONE 5: SINTESI REFERENTI -->
+    <!-- SEZIONE 5 -->
     <div id="tab5" class="tab-content card">
         <h3>5. Sintesi per Coordinatore</h3>
         <p>Raggruppamento automatico delle spese basato sui coordinatori di zona:</p>
@@ -165,7 +154,7 @@
         </div>
     </div>
 
-    <!-- SEZIONE 6: SINTESI SCONTRINI -->
+    <!-- SEZIONE 6 -->
     <div id="tab6" class="tab-content card">
         <h3>6. Sintesi Controllo Scontrini (Amministrazione)</h3>
         <p>Verifica corrispondenza tra cifre inserite e presenza dell'allegato fotografico:</p>
@@ -201,3 +190,7 @@
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             
+            elementoTab.classList.add('active');
+            document.getElementById('tab' + tabIndex).classList.add('active');
+            
+            if(tabIndex === 3) aggiornaArchivioScontrini();
