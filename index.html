@@ -1,1 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestione Nota Spese</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
+        .nav-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab { padding: 12px 20px; background: #e0e0e0; cursor: pointer; border-radius: 5px; font-weight: bold; }
+        .tab.active { background: #71b951; color: white; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        form { background: white; padding: 15px; border-radius: 5px; border: 1px solid #ccc; display: flex; gap: 10px; flex-wrap: wrap; }
+        input, select, button { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #71b951; color: white; border: none; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>Applicazione Nota Spese - Winner</h2>
+
+    <!-- Le 6 Parti Richieste -->
+    <div class="nav-tabs">
+        <div class="tab">1. Calcoli</div>
+        <div class="tab active">2. Nota Spese</div>
+        <div class="tab">3. Scontrini</div>
+        <div class="tab">4. Telepass</div>
+        <div class="tab">5. Sintesi Referenti</div>
+        <div class="tab">6. Sintesi Scontrini</div>
+    </div>
+
+    <!-- Form di Inserimento -->
+    <form id="spese-form">
+        <input type="date" required>
+        <input type="text" placeholder="Comune" required>
+        <select id="coordinatore-select">
+            <option value="">Seleziona Coordinatore...</option>
+        </select>
+        <input type="number" placeholder="Km" required id="km-input">
+        <input type="number" step="0.01" placeholder="Autostrade">
+        <input type="number" step="0.01" placeholder="Vitto">
+        <input type="number" step="0.01" placeholder="Varie">
+        <button type="submit">Aggiungi Riga</button>
+    </form>
+
+    <!-- Tabella -->
+    <table>
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Comune</th>
+                <th>Coordinatore di Zona</th>
+                <th>Km</th>
+                <th>Tot. Km/€</th>
+                <th>Autostrade</th>
+                <th>Vitto</th>
+                <th>Varie</th>
+                <th>Totale €</th>
+            </tr>
+        </thead>
+        <tbody id="tabella-corpo">
+            <!-- Righe inserite -->
+        </tbody>
+    </table>
+
+    <script>
+        // Carica la lista dei coordinatori dal file JSON
+        fetch('coordinatori.json')
+            .then(res => res.json())
+            .then(data => {
+                const select = document.getElementById('coordinatore-select');
+                data.forEach(coord => {
+                    let opt = document.createElement('option');
+                    opt.value = coord;
+                    opt.textContent = coord;
+                    select.appendChild(opt);
+                });
+            }).catch(err => console.error("Errore caricamento coordinatori:", err));
+    </script>
+</body>
+</html>
 
