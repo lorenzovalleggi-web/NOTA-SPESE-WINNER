@@ -9,11 +9,11 @@
         h2 { color: #2c3e50; margin-bottom: 5px; }
         .sottotitolo { color: #7f8c8d; margin-bottom: 20px; font-size: 14px; }
         .nav-tabs { display: flex; gap: 5px; margin-bottom: 20px; flex-wrap: wrap; background: #e0e0e0; padding: 6px; border-radius: 6px; }
-        .tab { flex: 1; min-width: 120px; text-align: center; padding: 12px 10px; background: none; cursor: pointer; border-radius: 4px; font-weight: 600; font-size: 13px; color: #555; transition: all 0.2s ease; border: none; }
-        .tab:hover { background: rgba(255,255,255,0.5); color: #000; }
-        .tab.active { background: #71b951; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .tab { flex: 1; min-width: 120px; text-align: center; padding: 12px 10px; background: #cccccc; cursor: pointer; border-radius: 4px; font-weight: 600; font-size: 13px; color: #333; border: 1px solid #b5b5b5; transition: all 0.2s ease; }
+        .tab:hover { background: #bdbdbd; }
+        .tab.active { background: #71b951 !important; color: white !important; border: 1px solid #5da33f; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        .tab-content.active { display: block !important; }
         .card { background: white; padding: 20px; border-radius: 6px; border: 1px solid #dcdfe6; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; }
         form { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; background: #fafafa; padding: 15px; border-radius: 6px; border: 1px solid #ebeef5; }
         input, select, button { padding: 10px; border: 1px solid #dcdfe6; border-radius: 4px; font-size: 14px; }
@@ -23,7 +23,6 @@
         button { background-color: #71b951; color: white; border: none; cursor: pointer; font-weight: bold; padding: 10px 20px; }
         button:hover { background-color: #5da33f; }
         button.btn-danger { background-color: #f56c6c; padding: 8px 15px; font-size: 13px; }
-        button.btn-danger:hover { background-color: #e64242; }
         .table-container { overflow-x: auto; background: white; margin-top: 20px; border-radius: 6px; border: 1px solid #dcdfe6; }
         table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
         th, td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
@@ -136,7 +135,7 @@
 
     <!-- SEZIONE 5 -->
     <div id="tab5" class="tab-content card">
-        <h3>5. Sintesi per Coordinatore</h3>
+        <h3>5. Sintesi Per Coordinatore</h3>
         <p>Raggruppamento automatico delle spese basato sui coordinatori di zona:</p>
         <div class="table-container">
             <table>
@@ -187,10 +186,11 @@
         ];
 
         function cambiaTab(tabIndex, elementoTab) {
+            console.log("Cambio scheda richiesto su indice: " + tabIndex);
+            
+            // Nasconde tutte le sezioni e toglie lo stato attivo dai pulsanti
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             
+            // Attiva il pulsante cliccato e mostra la sezione corretta
             elementoTab.classList.add('active');
-            document.getElementById('tab' + tabIndex).classList.add('active');
-            
-            if(tabIndex === 3) aggiornaArchivioScontrini();
