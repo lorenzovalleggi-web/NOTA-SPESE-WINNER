@@ -6,26 +6,38 @@
     <title>Gestione Nota Spese - Winner</title>
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 20px; background-color: #f4f6f9; color: #333; }
-        h2 { color: #2c3e50; }
-        .nav-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-        .tab { padding: 10px 16px; background: #dbdbdb; cursor: pointer; border-radius: 4px; font-weight: 600; font-size: 14px; transition: background 0.2s; }
-        .tab.active { background: #71b951; color: white; }
+        h2 { color: #2c3e50; margin-bottom: 5px; }
+        .sottotitolo { color: #7f8c8d; margin-bottom: 20px; font-size: 14px; }
+        
+        /* Menu di Navigazione a Schede */
+        .nav-tabs { display: flex; gap: 5px; margin-bottom: 20px; flex-wrap: wrap; background: #e0e0e0; padding: 6px; border-radius: 6px; }
+        .tab { flex: 1; min-width: 120px; text-align: center; padding: 12px 10px; background: none; cursor: pointer; border-radius: 4px; font-weight: 600; font-size: 13px; color: #555; transition: all 0.2s ease; border: none; }
+        .tab:hover { background: rgba(255,255,255,0.5); color: #000; }
+        .tab.active { background: #71b951; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        
+        /* Contenitori delle sezioni */
         .tab-content { display: none; }
         .tab-content.active { display: block; }
+        
         .card { background: white; padding: 20px; border-radius: 6px; border: 1px solid #dcdfe6; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        form { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+        form { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; background: #fafafa; padding: 15px; border-radius: 6px; border: 1px solid #ebeef5; }
         input, select, button { padding: 10px; border: 1px solid #dcdfe6; border-radius: 4px; font-size: 14px; }
         input[type="number"] { width: 110px; }
-        .file-label { background-color: #e6a23c; color: white; padding: 10px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px; }
-        #scontrino, #telepass-file { display: none; }
-        button { background-color: #71b951; color: white; border: none; cursor: pointer; font-weight: bold; }
+        
+        .file-label { background-color: #e6a23c; color: white; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px; display: inline-block; }
+        .file-label:hover { background-color: #d39334; }
+        #scontrino { display: none; }
+        
+        button { background-color: #71b951; color: white; border: none; cursor: pointer; font-weight: bold; padding: 10px 20px; }
         button:hover { background-color: #5da33f; }
-        button.btn-danger { background-color: #f56c6c; }
+        button.btn-danger { background-color: #f56c6c; padding: 8px 15px; font-size: 13px; }
         button.btn-danger:hover { background-color: #e64242; }
-        .table-container { overflow-x: auto; background: white; margin-top: 20px; border-radius: 6px; border: 1px solid #dcdfe6; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        table { width: 100%; border-collapse: collapse; text-align: left; }
+        
+        .table-container { overflow-x: auto; background: white; margin-top: 20px; border-radius: 6px; border: 1px solid #dcdfe6; }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
         th, td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
         th { background-color: #f8f9fa; color: #606266; font-weight: 600; }
+        
         .totale-evidenziato { font-weight: bold; color: #2c3e50; }
         .anteprima-img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid #ccc; cursor: pointer; }
         .nessun-allegato { color: #909399; font-size: 12px; font-style: italic; }
@@ -35,32 +47,33 @@
 <body>
 
     <h2>Applicazione Nota Spese - Winner</h2>
+    <div class="sottotitolo">Fai clic sulle schede qui sotto per spostarti tra le varie sezioni dell'app:</div>
     
-    <!-- Menu di Navigazione delle 6 Sezioni -->
+    <!-- Menu di Navigazione -->
     <div class="nav-tabs">
-        <div class="tab active" onclick="cambiaTab(1, this)">1. Calcoli</div>
-        <div class="tab" onclick="cambiaTab(2, this)">2. Nota Spese</div>
-        <div class="tab" onclick="cambiaTab(3, this)">3. Scontrini</div>
-        <div class="tab" onclick="cambiaTab(4, this)">4. Telepass</div>
-        <div class="tab" onclick="cambiaTab(5, this)">5. Sintesi Referenti</div>
-        <div class="tab" onclick="cambiaTab(6, this)">6. Sintesi Scontrini</div>
+        <button class="tab" onclick="cambiaTab(1, this)">1. Calcoli</button>
+        <button class="tab active" onclick="cambiaTab(2, this)">2. Nota Spese</button>
+        <button class="tab" onclick="cambiaTab(3, this)">3. Scontrini</button>
+        <button class="tab" onclick="cambiaTab(4, this)">4. Telepass</button>
+        <button class="tab" onclick="cambiaTab(5, this)">5. Sintesi Referenti</button>
+        <button class="tab" onclick="cambiaTab(6, this)">6. Sintesi Scontrini</button>
     </div>
 
     <!-- SEZIONE 1: CALCOLI -->
-    <div id="tab1" class="tab-content active card">
-        <h3>Tariffe e Parametri di Calcolo</h3>
+    <div id="tab1" class="tab-content card">
+        <h3>1. Tariffe e Parametri di Calcolo</h3>
         <div class="box-calcolo">
             <p><strong>Rimborso Chilometrico Aziendale:</strong> 0,25 € per ogni KM effettuato.</p>
             <p>La formula applicata automaticamente è: <code>Totale Km/€ = Chilometri Inseriti × 0.25</code></p>
         </div>
-        <div id="riepilogo-finanziario">
-            <p><strong>Totale Generale Spese Accumulate:</strong> <span id="tot-generale-euro" style="font-size:18px; color:#71b951; font-weight:bold;">€ 0.00</span></p>
+        <div>
+            <p><strong>Totale Generale Spese Accumulate (Compreso Telepass):</strong> <span id="tot-generale-euro" style="font-size:20px; color:#71b951; font-weight:bold;">€ 0.00</span></p>
         </div>
     </div>
 
-    <!-- SEZIONE 2: NOTA SPESE (INSERIMENTO) -->
-    <div id="tab2" class="tab-content card">
-        <h3>Inserimento Nuova Trasferta</h3>
+    <!-- SEZIONE 2: NOTA SPESE -->
+    <div id="tab2" class="tab-content active card">
+        <h3>2. Inserimento Nuova Trasferta</h3>
         <form id="spese-form">
             <input type="date" id="data" required>
             <input type="text" id="comune" placeholder="Comune" required>
@@ -104,16 +117,15 @@
 
     <!-- SEZIONE 3: SCONTRINI -->
     <div id="tab3" class="tab-content card">
-        <h3>Archivio Scontrini e Ricevute</h3>
-        <p>In questa sezione puoi vedere l'elenco e l'anteprima ingrandita di tutti gli scontrini fotografati associati alle spese di vitto e varie.</p>
+        <h3>3. Archivio Scontrini e Ricevute</h3>
+        <p>Anteprima rapida di tutti gli scontrini fotografati e allegati alle trasferte:</p>
         <div id="lista-scontrini-globali" style="display:flex; gap:15px; flex-wrap:wrap; margin-top:15px;"></div>
     </div>
 
     <!-- SEZIONE 4: TELEPASS -->
     <div id="tab4" class="tab-content card">
-        <h3>Gestione e Resoconto Telepass</h3>
-        <p>Inserisci i transiti autostradali con Telepass o allega il report mensile dei pedaggi.</p>
-        <form id="telepass-form" onsubmit="aggiungiTelepass(event)">
+        <h3>4. Gestione e Resoconto Telepass</h3>
+        <form id="telepass-form" onsubmit="aggiungiTelepass(event)" style="margin-bottom:20px;">
             <input type="date" id="tel-data" required>
             <input type="text" id="tel-tratta" placeholder="Tratta (Es: Firenze - Pisa)" required>
             <input type="number" id="tel-importo" step="0.01" placeholder="Importo (€)" required>
@@ -135,8 +147,8 @@
 
     <!-- SEZIONE 5: SINTESI REFERENTI -->
     <div id="tab5" class="tab-content card">
-        <h3>Sintesi per Coordinatore</h3>
-        <p>Raggruppamento automatico delle spese e dei rimborsi chilometrici in base al referente selezionato.</p>
+        <h3>5. Sintesi per Coordinatore</h3>
+        <p>Raggruppamento automatico delle spese basato sui coordinatori di zona:</p>
         <div class="table-container">
             <table>
                 <thead>
@@ -144,8 +156,8 @@
                         <th>Nome Coordinatore</th>
                         <th>Km Totali</th>
                         <th>Rimborso Km Tot.</th>
-                        <th>Spese Totali (Vitto/Varie/Autostrade)</th>
-                        <th>Budget Totale Approvato</th>
+                        <th>Spese Generali</th>
+                        <th>Totale Complessivo</th>
                     </tr>
                 </thead>
                 <tbody id="tabella-sintesi-referenti"></tbody>
@@ -155,15 +167,15 @@
 
     <!-- SEZIONE 6: SINTESI SCONTRINI -->
     <div id="tab6" class="tab-content card">
-        <h3>Sintesi Controllo Scontrini (Amministrazione)</h3>
-        <p>Tabella di verifica immediata per l'amministrazione: confronta l'importo scritto con la presenza della ricevuta.</p>
+        <h3>6. Sintesi Controllo Scontrini (Amministrazione)</h3>
+        <p>Verifica corrispondenza tra cifre inserite e presenza dell'allegato fotografico:</p>
         <div class="table-container">
             <table>
                 <thead>
                     <tr>
                         <th>Data Trasferta</th>
                         <th>Comune</th>
-                        <th>Importo Vitto + Varie</th>
+                        <th>Importo Spese (Vitto+Varie)</th>
                         <th>Stato Allegato</th>
                     </tr>
                 </thead>
@@ -176,7 +188,6 @@
         const TARIFFA_KM = 0.25;
         let scontrinoBase64 = "";
         
-        // Memoria interna dell'applicazione caricata dal browser
         let databaseSpese = JSON.parse(localStorage.getItem('databaseSpese')) || [];
         let databaseTelepass = JSON.parse(localStorage.getItem('databaseTelepass')) || [];
 
@@ -186,18 +197,7 @@
             "Coordinatore Migliaccio", "Coordinatore Piccinetti", "Coordinatore Stella", "Coordinatore Vendemini"
         ];
 
-        // Cambia la visualizzazione tra le 6 schede
         function cambiaTab(tabIndex, elementoTab) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             
-            elementoTab.classList.add('active');
-            document.getElementById('tab' + tabIndex).classList.add('active');
-            
-            if(tabIndex === 3) aggiornaArchivioScontrini();
-            if(tabIndex === 5) aggiornaSintesiReferenti();
-            if(tabIndex === 6) aggiornaSintesiScontrini();
-        }
-
-        // Popola la selezione dei coordinatori
-        const select = document.getElementById('coordinatore-select');
