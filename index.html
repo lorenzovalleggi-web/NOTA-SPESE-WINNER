@@ -186,11 +186,13 @@
         ];
 
         function cambiaTab(tabIndex, elementoTab) {
-            console.log("Cambio scheda richiesto su indice: " + tabIndex);
-            
-            // Nasconde tutte le sezioni e toglie lo stato attivo dai pulsanti
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             
-            // Attiva il pulsante cliccato e mostra la sezione corretta
             elementoTab.classList.add('active');
+            const targetSezione = document.getElementById('tab' + tabIndex);
+            if(targetSezione) {
+                targetSezione.classList.add('active');
+            }
+            
+            if(tabIndex === 3) aggiornaArchivioScontrini();
