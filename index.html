@@ -4,34 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Winner - Gestione Nota Spese</title>
-    <!-- Bootstrap per la grafica -->
+    <!-- Bootstrap per la grafica pulita -->
     <link href="https://jsdelivr.net" rel="stylesheet">
     <style>
         body { background-color: #f8f9fa; }
         .sidebar { background-color: #212529; min-height: 100vh; color: white; padding-top: 20px; }
         
-        /* Stile standard dei tasti: grigi */
-        .sidebar .nav-link { 
-            color: #adb5bd; 
-            cursor: pointer; 
-            border-left: 4px solid transparent;
-            transition: all 0.2s ease;
+        /* Struttura pulsanti menu stabili */
+        .menu-btn {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            color: #adb5bd;
+            padding: 10px 15px;
             margin-bottom: 5px;
+            border-left: 4px solid transparent;
+            border-radius: 4px;
+            transition: all 0.2s ease;
         }
-        /* Effetto quando passi sopra il mouse */
-        .sidebar .nav-link:hover { 
-            color: #fff; 
-            background-color: #343a40; 
+        .menu-btn:hover {
+            color: #fff;
+            background-color: #343a40;
         }
-        /* Tasto ATTIVO selezionato: diventa VERDE intenso */
-        .sidebar .nav-link.active { 
-            color: #fff !important; 
-            background-color: #198754 !important; /* Verde Bootstrap Success */
+        /* Stato ATTIVO forzato: Il pulsante selezionato diventa VERDE */
+        .menu-btn.active {
+            color: #fff !important;
+            background-color: #198754 !important; /* Verde Success */
             border-left: 4px solid #fff;
-            font-weight: bold; 
+            font-weight: bold;
         }
         
-        /* Gestione visibilità sezioni */
+        /* Controllo visibilità sezioni */
         .section-content { display: none; }
         .section-content.active { display: block; }
     </style>
@@ -40,21 +44,21 @@
 
 <div class="container-fluid">
     <div class="row">
-        <!-- MENU LATERALE RIVISTO -->
+        <!-- MENU LATERALE CON BOTTONI STABILI -->
         <nav class="col-md-3 col-lg-2 d-md-block sidebar p-3">
             <div class="text-center mb-4">
                 <h5 class="text-success fw-bold">WINNER COOP</h5>
                 <small class="text-muted">Nota Spese v2026</small>
             </div>
-            <ul class="nav flex-column" id="menuLaterale">
-                <li class="nav-item"><a class="nav-link active" onclick="switchSection('nota-spese', this)">1. Nota Spese</a></li>
-                <li class="nav-item"><a class="nav-link" onclick="switchSection('calcoli', this)">2. Calcoli & Firme</a></li>
-                <li class="nav-item"><a class="nav-link" onclick="switchSection('scontrini', this)">3. Scontrini Giustificativi</a></li>
-                <li class="nav-item"><a class="nav-link" onclick="switchSection('telepass', this)">4. Telepass</a></li>
-                <li class="nav-item"><a class="nav-link" onclick="switchSection('sintesi-referenti', this)">5. Sintesi Referenti</a></li>
-                <li class="nav-item"><a class="nav-link" onclick="switchSection('sintesi-scontrini', this)">6. Sintesi Scontrini</a></li>
-                <li class="nav-item"><a class="nav-link" onclick="switchSection('dkv', this)">7. DKV Carta Carburante</a></li>
-            </ul>
+            <div class="d-flex flex-column" id="menuLaterale">
+                <button class="menu-btn active" onclick="switchSection('nota-spese', this)">1. Nota Spese</button>
+                <button class="menu-btn" onclick="switchSection('calcoli', this)">2. Calcoli & Firme</button>
+                <button class="menu-btn" onclick="switchSection('scontrini', this)">3. Scontrini Giustificativi</button>
+                <button class="menu-btn" onclick="switchSection('telepass', this)">4. Telepass</button>
+                <button class="menu-btn" onclick="switchSection('sintesi-referenti', this)">5. Sintesi Referenti</button>
+                <button class="menu-btn" onclick="switchSection('sintesi-scontrini', this)">6. Sintesi Scontrini</button>
+                <button class="menu-btn" onclick="switchSection('dkv', this)">7. DKV Carta Carburante</button>
+            </div>
         </nav>
 
         <!-- CONTENUTO DELLE SEZIONI -->
@@ -65,7 +69,7 @@
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">1. Nota Spese Aziendale</h1>
                 </div>
-                <!-- Dati Dipendente -->
+                <!-- Anagrafica Dipendente -->
                 <div class="row mb-4 bg-white p-3 border rounded shadow-sm">
                     <div class="col-md-4">
                         <label class="form-label fw-bold">Nome Cognome Dipendente</label>
@@ -130,7 +134,6 @@
                 <div class="pt-3 pb-2 mb-3 border-bottom"><h2>2. Calcoli & Firme</h2></div>
                 <div class="bg-white p-4 border rounded shadow-sm mb-4">
                     <h5>Riepilogo e Convalida della Nota Spese</h5>
-                    <p class="text-muted">In questa sezione puoi caricare i file delle firme per la convalida ufficiale.</p>
                     <div class="row mt-4">
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">✍️ Allega Firma Dipendente</label>
@@ -148,7 +151,7 @@
             <div id="scontrini" class="section-content">
                 <div class="pt-3 pb-2 mb-3 border-bottom"><h2>3. Scontrini Giustificativi</h2></div>
                 <div class="bg-white p-4 border rounded shadow-sm">
-                    <label class="form-label fw-bold">📷 Trascina o seleziona le foto delle ricevute (Vitto / Varie / Autostrada)</label>
+                    <label class="form-label fw-bold">📷 Carica le ricevute (Vitto / Varie / Autostrada)</label>
                     <input type="file" class="form-control" multiple>
                 </div>
             </div>
@@ -157,7 +160,7 @@
             <div id="telepass" class="section-content">
                 <div class="pt-3 pb-2 mb-3 border-bottom"><h2>4. Telepass</h2></div>
                 <div class="bg-white p-4 border rounded shadow-sm">
-                    <label class="form-label fw-bold">📑 Allega File Estratto Conto Telepass (.pdf / .csv)</label>
+                    <label class="form-label fw-bold">📑 Allega report Telepass (.pdf / .csv)</label>
                     <input type="file" class="form-control mb-3">
                 </div>
             </div>
@@ -165,3 +168,11 @@
             <!-- ALTRE SEZIONI -->
             <div id="sintesi-referenti" class="section-content"><div class="pt-3 pb-2 mb-3 border-bottom"><h2>5. Sintesi Referenti</h2></div><p>Costi suddivisi per singolo coordinatore.</p></div>
             <div id="sintesi-scontrini" class="section-content"><div class="pt-3 pb-2 mb-3 border-bottom"><h2>6. Sintesi Scontrini</h2></div><p>Riepilogo dei giustificativi associati.</p></div>
+            <div id="dkv" class="section-content"><div class="pt-3 pb-2 mb-3 border-bottom"><h2>7. DKV Carta Carburante</h2></div><p>Monitoraggio delle transazioni carburante.</p></div>
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // LOGICA DI CAMBIO SEZIONE CORRETTA E FORZATA
