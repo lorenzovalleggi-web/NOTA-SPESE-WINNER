@@ -23,6 +23,7 @@
             transition: all 0.2s ease;
         }
         .menu-btn:hover { color: #fff; background-color: #34495e; }
+        /* Tasto Attivo Selezionato: Diventa VERDE */
         .menu-btn.active {
             color: #fff !important;
             background-color: #28a745 !important;
@@ -39,7 +40,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <!-- 🗂️ MENU LATERALE A 7 SEZIONI ORDINATE -->
+        <!-- 🗂️ MENU LATERALE SEMPLIFICATO (VOCI 4, 5, 6 RIMOSSE) -->
         <nav class="col-md-3 col-lg-2 d-md-block sidebar p-3">
             <div class="text-center mb-4 pb-3 border-bottom border-secondary">
                 <h5 class="text-warning fw-bold mb-1">WINNER</h5>
@@ -49,10 +50,7 @@
                 <button class="menu-btn active" onclick="switchSection('nota-spese', this)">1. Nota Spese</button>
                 <button class="menu-btn" onclick="switchSection('calcoli', this)">2. Calcoli & Firme</button>
                 <button class="menu-btn" onclick="switchSection('scontrini', this)">3. Scontrini</button>
-                <button class="menu-btn" onclick="switchSection('telepass', this)">4. Telepass</button>
-                <button class="menu-btn" onclick="switchSection('sintesi-referenti', this)">5. Sintesi Referenti</button>
-                <button class="menu-btn" onclick="switchSection('sintesi-scontrini', this)">6. Sintesi Scontrini</button>
-                <button class="menu-btn" onclick="switchSection('dkv', this)">7. DKV Carta Carburante</button>
+                <button class="menu-btn" onclick="switchSection('dkv', this)">4. DKV Carta Carburante</button>
             </div>
         </nav>
 
@@ -151,17 +149,30 @@
                 </div>
             </div>
             
-            <!-- 4. TELEPASS -->
-            <div id="telepass" class="section-content">
-                <div class="pb-2 mb-3 border-bottom"><h1 class="h3">4. Telepass</h1></div>
-                <div class="card-custom">
-                    <h5 class="text-primary fw-bold mb-3">Rendicontazione Pedaggi Autostradali Automatizzati</h5>
-                    <div class="mb-4 p-3 border rounded bg-light">
-                        <label class="form-label fw-bold">📎 Carica File Report Mensile Telepass (.csv, .pdf)</label>
-                        <input type="file" class="form-control">
-                    </div>
-                </div>
+            <!-- 7. DKV (Diventata sezione 4 temporaneamente) -->
+            <div id="dkv" class="section-content">
+                <div class="pb-2 mb-3 border-bottom"><h1 class="h3">4. DKV Carta Carburante</h1></div>
+                <p class="card-custom">Rendicontazione e archiviazione degli scontrini carburante aziendali.</p>
             </div>
-            
-            <!-- SEZIONI 5, 6, 7 -->
-            <div id="sintesi-referenti" class="section-content"><div class="pb-2 mb-3 border-bottom"><h1 class="h3">5. Sintesi Referenti</h1></div><p class="card-custom">Sezione predisposta per il calcolo dei totali attribuiti a ciascun coordinatore.</p></div>
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Gestione del cambio sezione semplificato
+    function switchSection(sectionId, element) {
+        document.querySelectorAll('.section-content').forEach(function(sec) { sec.classList.remove('active'); });
+        document.querySelectorAll('.menu-btn').forEach(function(btn) { btn.classList.remove('active'); });
+        
+        document.getElementById(sectionId).classList.add('active');
+        element.classList.add('active');
+    }
+
+    // Inserimento righe calcolato dinamicamente
+    function aggiungiRigaDinamica() {
+        let data = document.getElementById('insData').value || '-';
+        let comune = document.getElementById('insComune').value || '-';
+        let coord = document.getElementById('insCoordinatore').value || '-';
+        let km = parseFloat(document.getElementById('insKm').value) || 0;
+        let auto = parseFloat(document.getElementById('insAuto').value) || 0;
