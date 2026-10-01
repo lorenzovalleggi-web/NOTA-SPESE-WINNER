@@ -14,24 +14,14 @@
             text-align: left;
             background: none;
             border: none;
-            color: #ecf0f1;
+            color: #fff !important;
+            background-color: #28a745 !important; /* Verde fisso per l'unica sezione attiva */
             padding: 12px 15px;
             margin-bottom: 6px;
-            border-left: 4px solid transparent;
-            border-radius: 4px;
-            font-size: 14px;
-            transition: all 0.2s ease;
-        }
-        .menu-btn:hover { color: #fff; background-color: #34495e; }
-        /* Tasto Attivo Selezionato: Diventa VERDE */
-        .menu-btn.active {
-            color: #fff !important;
-            background-color: #28a745 !important;
             border-left: 4px solid #fff;
+            font-size: 14px;
             font-weight: bold;
         }
-        .section-content { display: none; }
-        .section-content.active { display: block; }
         .card-custom { background: white; border: 1px solid #e3e6f0; border-radius: 0.35rem; box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15); padding: 20px; margin-bottom: 20px; }
         .table-custom th { background-color: #343a40; color: white; text-align: center; }
     </style>
@@ -40,17 +30,14 @@
 
 <div class="container-fluid">
     <div class="row">
-        <!-- 🗂️ MENU LATERALE SEMPLIFICATO (VOCI 4, 5, 6 RIMOSSE) -->
+        <!-- 🗂️ MENU LATERALE: SOLO SEZIONE 1 -->
         <nav class="col-md-3 col-lg-2 d-md-block sidebar p-3">
             <div class="text-center mb-4 pb-3 border-bottom border-secondary">
                 <h5 class="text-warning fw-bold mb-1">WINNER</h5>
                 <small class="text-light">Società Cooperativa</small>
             </div>
             <div class="d-flex flex-column" id="menuLaterale">
-                <button class="menu-btn active" onclick="switchSection('nota-spese', this)">1. Nota Spese</button>
-                <button class="menu-btn" onclick="switchSection('calcoli', this)">2. Calcoli & Firme</button>
-                <button class="menu-btn" onclick="switchSection('scontrini', this)">3. Scontrini</button>
-                <button class="menu-btn" onclick="switchSection('dkv', this)">4. DKV Carta Carburante</button>
+                <button class="menu-btn">1. Nota Spese</button>
             </div>
         </nav>
 
@@ -58,7 +45,7 @@
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pt-4">
             
             <!-- 1. NOTA SPESE -->
-            <div id="nota-spese" class="section-content active">
+            <div id="nota-spese">
                 <div class="d-flex justify-content-between align-items-center pb-2 mb-3 border-bottom">
                     <h1 class="h3 text-gray-800">1. Nota Spese</h1>
                 </div>
@@ -117,58 +104,11 @@
                 </div>
             </div>
 
-            <!-- 2. CALCOLI & FIRME -->
-            <div id="calcoli" class="section-content">
-                <div class="pb-2 mb-3 border-bottom"><h1 class="h3">2. Calcoli & Firme</h1></div>
-                <div class="card-custom">
-                    <h5 class="text-primary fw-bold mb-4">Riepilogo Finanziario e Convalida</h5>
-                    <div class="row g-4 mb-4">
-                        <div class="col-md-6">
-                            <div class="p-3 border rounded bg-light">
-                                <label class="form-label fw-bold">✍️ Firma del Dipendente (Allega Immagine)</label>
-                                <input type="file" class="form-control" id="fileFirmaDipendente">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3 border rounded bg-light">
-                                <label class="form-label fw-bold">🛡️ Firma del Coordinatore (Allega Immagine)</label>
-                                <input type="file" class="form-control" id="fileFirmaCoordinatore">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 3. SCONTRINI -->
-            <div id="scontrini" class="section-content">
-                <div class="pb-2 mb-3 border-bottom"><h1 class="h3">3. Scontrini</h1></div>
-                <div class="card-custom">
-                    <h5 class="text-primary fw-bold mb-3">Caricamento Ricevute</h5>
-                    <p class="text-muted">Seleziona o trascina qui i file digitali delle ricevute fiscali (Autostrade, Vitto e Varie).</p>
-                    <input type="file" class="form-control" multiple>
-                </div>
-            </div>
-            
-            <!-- 7. DKV (Diventata sezione 4 temporaneamente) -->
-            <div id="dkv" class="section-content">
-                <div class="pb-2 mb-3 border-bottom"><h1 class="h3">4. DKV Carta Carburante</h1></div>
-                <p class="card-custom">Rendicontazione e archiviazione degli scontrini carburante aziendali.</p>
-            </div>
-
         </main>
     </div>
 </div>
 
 <script>
-    // Gestione del cambio sezione semplificato
-    function switchSection(sectionId, element) {
-        document.querySelectorAll('.section-content').forEach(function(sec) { sec.classList.remove('active'); });
-        document.querySelectorAll('.menu-btn').forEach(function(btn) { btn.classList.remove('active'); });
-        
-        document.getElementById(sectionId).classList.add('active');
-        element.classList.add('active');
-    }
-
     // Inserimento righe calcolato dinamicamente
     function aggiungiRigaDinamica() {
         let data = document.getElementById('insData').value || '-';
@@ -176,3 +116,34 @@
         let coord = document.getElementById('insCoordinatore').value || '-';
         let km = parseFloat(document.getElementById('insKm').value) || 0;
         let auto = parseFloat(document.getElementById('insAuto').value) || 0;
+        let vitto = parseFloat(document.getElementById('insVitto').value) || 0;
+        let varie = parseFloat(document.getElementById('insVarie').value) || 0;
+
+        let totKmEuro = km * 0.25;
+        let totaleRiga = totKmEuro + auto + vitto + varie;
+
+        let corpo = document.getElementById('corpoTabellaPrincipale');
+        let riga = document.createElement('tr');
+        riga.innerHTML = `
+            <td class="text-center">${data}</td>
+            <td>${comune}</td>
+            <td>${coord}</td>
+            <td class="text-end">${km}</td>
+            <td class="text-end">€ ${totKmEuro.toFixed(2)}</td>
+            <td class="text-end">€ ${auto.toFixed(2)}</td>
+            <td class="text-end">€ ${vitto.toFixed(2)}</td>
+            <td class="text-end">€ ${varie.toFixed(2)}</td>
+            <td class="text-end fw-bold table-success">€ ${totaleRiga.toFixed(2)}</td>
+        `;
+        corpo.appendChild(riga);
+
+        // Reset dei campi di input dopo l'inserimento
+        document.getElementById('insComune').value = '';
+        document.getElementById('insKm').value = '';
+        document.getElementById('insAuto').value = '';
+        document.getElementById('insVitto').value = '';
+        document.getElementById('insVarie').value = '';
+    }
+</script>
+</body>
+</html>
